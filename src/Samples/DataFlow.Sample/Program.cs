@@ -46,33 +46,29 @@ namespace DataFlow.Sample
                 var filedTypes=  solrSchema.SolrFields.Select(f => f.Type.Name).Distinct();
                 solrSchema.SolrFields.ForEach(sf =>
                 {
-                    if (sf.Type.Name.Equals("int"))
+                    switch (sf.Type.Name)
                     {
-                        properties.Add(sf.Name.ToLower(),new NumberProperty(NumberType.Integer));
-                    }
-                    else if (sf.Type.Name=="string")
-                    {
-                        properties.Add(sf.Name.ToLower(), new KeywordProperty());
-                    }
-                    else if (sf.Type.Name.Equals("double"))
-                    {
-                        properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Double));
-                    }
-                    else if (sf.Type.Name.Equals("float"))
-                    {
-                        properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Float));
-                    }
-                    else if(sf.Type.Name.Equals("location_rpt"))
-                    {
-                        properties.Add(sf.Name.ToLower(), new GeoPointProperty());
-                    }
-                    else if (sf.Type.Name.Equals("date"))
-                    {
-                        properties.Add(sf.Name.ToLower(), new DateProperty());
-                    }
-                    else
-                    {
-                        properties.Add(sf.Name.ToLower(), new TextProperty());
+                        case "int":
+                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Integer));
+                                break;
+                        case "double":
+                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Double));
+                            break;
+                        case "float":
+                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Float));
+                            break;
+                        case "string":
+                            properties.Add(sf.Name.ToLower(), new KeywordProperty());
+                            break;
+                        case "date":
+                            properties.Add(sf.Name.ToLower(), new DateProperty());
+                            break;
+                        case "location_rpt":
+                            properties.Add(sf.Name.ToLower(), new GeoPointProperty());
+                            break;
+                            default:                     
+                                properties.Add(sf.Name.ToLower(), new TextProperty());
+                            break;
                     }
                 });
 
