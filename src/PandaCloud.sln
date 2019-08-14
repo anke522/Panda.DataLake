@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PandaCloud.DataFlow.Core", "PandaCloud.DataFlow.Core\PandaCloud.DataFlow.Core.csproj", "{CD8C406C-D170-4AD7-9BFF-CF1C21FA84F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PandaCloud.DataFlow.NLog", "PandaCloud.DataFlow.NLog\PandaCloud.DataFlow.NLog.csproj", "{FA08E05A-F08E-4E1C-95AB-5DEC308CF78C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PandaCloud.Core", "PandaCloud.Core\PandaCloud.Core.csproj", "{E7E8CFD3-A405-4026-92C3-452826BC4138}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PandaCloud.Extensions", "PandaCloud.Extensions\PandaCloud.Extensions.csproj", "{F3F11222-361E-4AF0-8A17-AB54C48CB14B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2875A484-C404-4809-A632-1AC19C5FB5F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFlow.Sample", "Samples\DataFlow.Sample\DataFlow.Sample.csproj", "{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD8C406C-D170-4AD7-9BFF-CF1C21FA84F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8C406C-D170-4AD7-9BFF-CF1C21FA84F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8C406C-D170-4AD7-9BFF-CF1C21FA84F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8C406C-D170-4AD7-9BFF-CF1C21FA84F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA08E05A-F08E-4E1C-95AB-5DEC308CF78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA08E05A-F08E-4E1C-95AB-5DEC308CF78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA08E05A-F08E-4E1C-95AB-5DEC308CF78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA08E05A-F08E-4E1C-95AB-5DEC308CF78C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7E8CFD3-A405-4026-92C3-452826BC4138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7E8CFD3-A405-4026-92C3-452826BC4138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7E8CFD3-A405-4026-92C3-452826BC4138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7E8CFD3-A405-4026-92C3-452826BC4138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F11222-361E-4AF0-8A17-AB54C48CB14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F11222-361E-4AF0-8A17-AB54C48CB14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F11222-361E-4AF0-8A17-AB54C48CB14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F11222-361E-4AF0-8A17-AB54C48CB14B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D} = {2875A484-C404-4809-A632-1AC19C5FB5F5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7DBE9A8-4964-48F8-9A16-FBB44182CD56}
+	EndGlobalSection
+EndGlobal
