@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using ElasticSearch.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
+using Serilog;
 using SolrNet;
 using SolrNet.Commands.Parameters;
+using SolrNet.Impl;
+using SolrNet.Microsoft.DependencyInjection;
 using SolrNet.Schema;
+using Serilog.Extensions.Logging;
 
 namespace DataFlow.Sample
 {
@@ -15,117 +22,45 @@ namespace DataFlow.Sample
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Please enter solr core name!");
+            var index= Console.ReadLine();
+            var prefixIndexName = index;
+
+            Console.WriteLine($"You enter solr core name is :{index}");
+
             IServiceCollection serviceCollection =new ServiceCollection();
 
-            serviceCollection.AddSolrNet("http://localhost:9996/solr/SYRK");
+            var credentials = System.Text.Encoding.ASCII.GetBytes("test:123");
+
+            var credentialsBase64 = Convert.ToBase64String(credentials);
+
+
+            serviceCollection.AddSolrNet($"http://192.168.30.3:9988/solr/{prefixIndexName.ToUpper()}",
+                options =>
+                {
+                    options.HttpClient.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentialsBase64);
+                });
+
+            serviceCollection.AddElasticSearch("http://127.0.0.1:9200");
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            serviceCollection.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            serviceCollection.AddScoped(typeof(ISolrToElastic), typeof(SolrToElastic));
 
             IServiceProvider serviceProvider= serviceCollection.BuildServiceProvider();
 
-            ISolrOperations<Dictionary<string, object>> solrOperations = serviceProvider.GetService<ISolrOperations<Dictionary<string,object>>>();
-
-            var next = true;
+            ISolrToElastic solrToElastic = serviceProvider.GetService<ISolrToElastic>();
 
 
-            IElasticClient elasticClient = new ElasticClient(new Uri("http://127.0.0.1:9200"));
+            solrToElastic.ParallelExecutorAsync(prefixIndexName).GetAwaiter().GetResult();
 
-            var response = elasticClient.Indices.Exists(index: "ebss_syrk".ToLower());
-
-
-            if (!response.Exists)
-            {
-                var solrSchema = solrOperations.GetSchema("schema.xml");
-
-
-                var indexSettings = new IndexSettings()
-                {
-                    NumberOfReplicas = 0
-                };
-                var properties = new Properties();
-
-             
-                var filedTypes=  solrSchema.SolrFields.Select(f => f.Type.Name).Distinct();
-                solrSchema.SolrFields.ForEach(sf =>
-                {
-                    switch (sf.Type.Name)
-                    {
-                        case "int":
-                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Integer));
-                                break;
-                        case "double":
-                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Double));
-                            break;
-                        case "float":
-                            properties.Add(sf.Name.ToLower(), new NumberProperty(NumberType.Float));
-                            break;
-                        case "string":
-                            properties.Add(sf.Name.ToLower(), new KeywordProperty());
-                            break;
-                        case "date":
-                            properties.Add(sf.Name.ToLower(), new DateProperty());
-                            break;
-                        case "location_rpt":
-                            properties.Add(sf.Name.ToLower(), new GeoPointProperty());
-                            break;
-                            default:                     
-                                properties.Add(sf.Name.ToLower(), new TextProperty());
-                            break;
-                    }
-                });
-
-                var typeMappings = new TypeMapping()
-                {
-                    Properties = properties
-                };
-
-                elasticClient.Indices.Create("ebss_syrk", p =>
-                    p.InitializeUsing(new IndexState()
-                    {
-                        Settings = indexSettings,
-                        Mappings = typeMappings
-                    }));
-            }
-
-            var stopwatch=new Stopwatch();
-            stopwatch.Start();
-
-            int start = 0;
-            int batchSize = 5000;
-            while (next)
-            {
-                var result = solrOperations.Query(SolrQuery.All, new QueryOptions
-                {
-                    StartOrCursor = new StartOrCursor.Start(start),
-                    Rows = batchSize
-                });
-
-                result.ForEach(r =>
-                {
-                    if (r.ContainsKey("AC_GEO"))
-                    {
-                        var wkt = r["AC_GEO"].ToString().Split(" ");
-                        r["AC_GEO"] = new GeoLocation(double.Parse(wkt[1]), double.Parse(wkt[0]));
-                    }
-                    else
-                    {
-                        Console.WriteLine("缺少经纬度");
-                    }
-                    
-
-                });
-               var bulkResponse= elasticClient.Bulk(p => p.IndexMany(result).Index("ebss_syrk"));
-
-              var flushResponse= elasticClient.Indices.Flush();
-                start += result.Count;
-                next = result.NumFound > start;
-                Console.WriteLine($"{start}/{ result.NumFound} ReaderOptions ended"  );
-            }
-            
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
-
-        
-           
-           Console.Read();
+            Console.Read();
         }
+
     }
 }

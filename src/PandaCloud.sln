@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2875
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFlow.Sample", "Samples\DataFlow.Sample\DataFlow.Sample.csproj", "{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticSearch.Extensions.DependencyInjection", "ElasticSearch.Extensions.DependencyInjection\ElasticSearch.Extensions.DependencyInjection.csproj", "{615F35C5-6712-47CF-876C-E37F99E7D003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D231CF1E-CAB5-4BD9-9EB9-C1D9199ED41D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615F35C5-6712-47CF-876C-E37F99E7D003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615F35C5-6712-47CF-876C-E37F99E7D003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615F35C5-6712-47CF-876C-E37F99E7D003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615F35C5-6712-47CF-876C-E37F99E7D003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
