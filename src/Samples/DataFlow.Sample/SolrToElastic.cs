@@ -42,6 +42,7 @@ namespace DataFlow.Sample
                 var result =await Transform(start, batchSize,  indexName);
                 start += result;
                 next = _documentCount > start;
+                _logger.LogInformation($"Indexs: {start} / {_documentCount} ");
             }
 
             stopwatch.Stop();
@@ -75,7 +76,7 @@ namespace DataFlow.Sample
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    _logger.LogError(e.Message);
                     throw;
                 }
 //                var stopwatchIn = new Stopwatch();
@@ -312,7 +313,7 @@ namespace DataFlow.Sample
             if (bulkResponse.Errors)
             {
             }
-
+           
             var flushResponse = _elasticClient.Indices.Flush();
             return result.Count;
         }
