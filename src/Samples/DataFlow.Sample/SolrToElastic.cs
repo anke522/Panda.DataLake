@@ -34,7 +34,7 @@ namespace DataFlow.Sample
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            int start = 0;
+            int start = 10640000;
             int batchSize = 10000;
 
             while (next)
@@ -48,6 +48,11 @@ namespace DataFlow.Sample
             stopwatch.Stop();
 
             _logger.LogInformation($"total time: {stopwatch.ElapsedMilliseconds / (1000 * 60)}  mins ");
+        }
+
+        public Task BullExecutorAsync(string indexName, int start, int endNum, int batchSize)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task ParallelExecutorAsync(string indexName)

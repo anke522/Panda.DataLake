@@ -45,6 +45,7 @@ namespace DataFlow.Sample
 
             var solrToElastic = serviceProvider.GetService<ISolrToElastic>();
 
+
             solrToElastic.ExecutorAsync(prefixIndexName).GetAwaiter().GetResult();
 
             Console.Read();

@@ -6,6 +6,8 @@ namespace DataFlow.Sample
     {
        Task ExecutorAsync(string indexName);
 
-       Task ParallelExecutorAsync(string indexName);
+       Task BullExecutorAsync(string indexName,int start, int endNum, int batchSize);
+
+        Task ParallelExecutorAsync(string indexName);
     }
 }
